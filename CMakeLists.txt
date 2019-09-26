@@ -3,8 +3,9 @@ project(example)
 #Regrad the project as a library
 set(USE_${PROJECT_NAME}_AS_LIBRARY FALSE)
 ##Find and include easylib
-set(EASYLIB_ROOT_DIR "${EASYLIB_ROOT_DIR}" CACHE PATH
-"Easylib root directory" FORCE)
+set(EASYLIB_ROOT_DIR "${EASYLIB_ROOT_DIR}" CACHE PATH "Easylib root directory" FORCE)
+
+##options
 
 if(NOT EASYLIB_ROOT_DIR)
     message(FATAL_ERROR "You have to specify easylib root directory before call it ...")
@@ -19,7 +20,7 @@ file(GLOB ${PROJECT_NAME}_SOURCE "${CMAKE_CURRENT_LIST_DIR}/src/*.cc" "${CMAKE_C
 add_library(${PROJECT_NAME}_core ${${PROJECT_NAME}_SOURCE})
 
 target_include_directories(${PROJECT_NAME}_core PUBLIC ${${PROJECT_NAME}_INCLUDE_DIR})
-target_link_libraries(${PROJECT_NAME}_core elib::core) #And any library you need in easylib
+target_link_libraries(${PROJECT_NAME}_core elib::core elib::ceres) #And any library you need in easylib
 add_library(${PROJECT_NAME}::core ALIAS ${PROJECT_NAME}_core)
 
 if(NOT USE_${PROJECT_NAME}_AS_LIBRARY)
